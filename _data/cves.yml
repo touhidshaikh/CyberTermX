@@ -1,6 +1,25 @@
+# Can Add CVE Entries, Exploit-DB Links, or Other Notable Vulnerabilities Here
+
 - id: "CVE-2024-43381"
+  url: "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-43381"
   title: "reNgine - Stored XSS via DNS Entry."
+
 - id: "CVE-2021-29069"
+  url: "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-29069"
   title: "Netgear Router - Command Injection."
+
 - id: "CVE-2018-11714"
+  url: "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-11714"
   title: "TP-Link - Authentication Bypass."
+
+- id: "PSV-2018-0182"
+  url: "#"
+  title: "Netgear - Forced Logout Admin bypass."
+
+- id: "CVE-2017-9080"
+  url: "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-9080"
+  title: "PlaySMS - Remote Code Execution."
+
+- id: "VIEW_EXPLOIT_DB"
+  url: "https://www.exploit-db.com/author/?a=8966"
+  title: "10+ total CVEs published via Exploit-DB...."

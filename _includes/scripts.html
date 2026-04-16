@@ -47,12 +47,13 @@
             if (data.status === 'ok' && data.items.length > 0) {
                 container.innerHTML = '';
                 data.items.slice(0, 3).forEach(item => {
-                    // Extract just the date part (YYYY-MM-DD)
+                    // Extract just the date part (YYYY-MM-DD), Title and Description
                     const date = item.pubDate.split(' ')[0];
                     container.innerHTML += `
                         <a href="${item.link}" target="_blank" class="block border-l-2 border-purple-900 bg-purple-950/10 pl-4 py-3 hover:bg-purple-900/20 transition group">
                             <span class="text-[10px] text-purple-400 font-mono block mb-1 uppercase">PACKET_DATE: ${date}</span>
                             <span class="text-sm text-white font-bold group-hover:text-purple-300 transition">${item.title}</span>
+                            <p class="text-[10px] opacity-70 mt-1">${ item.description }</p>
                         </a>`;
                 });
             } else {

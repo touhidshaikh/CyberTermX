@@ -2,6 +2,8 @@
 layout: default
 ---
 
+# Welcome to the Cyber TermX Theme for Jekyll
+#This is a custom Jekyll theme designed to give your personal website a unique, cyberpunk by Touhid M Shaikh(@touhidshaikh)
 <section class="terminal-window p-6 mb-6">
     <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
         <span class="text-cyan-500 font-mono">[00]</span> INTERACTIVE_SHELL
@@ -15,24 +17,22 @@ layout: default
     </div>
 </section>
 
+# CVEs & EXPLOITs fetching from data/cves.yml 
 <section class="terminal-window p-6 mb-6">
     <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
-        <span class="text-red-600 font-mono">[01]</span> CVE_RESEARCH
+        <span class="text-red-600 font-mono">[01]</span> CVEs_AND_EXPLOITs
     </h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
         {% for cve in site.data.cves %}
         <div class="border-l-2 border-red-500 p-3 bg-red-900/5 hover-box">
-            <span class="text-red-500 font-bold block text-sm">{{ cve.id }}</span>
+            <span class="text-red-500 font-bold block text-sm"><a href="{{ cve.url }}" target="_blank">{{ cve.id }}</a></span>
             <p class="opacity-80 mt-1">{{ cve.title }}</p>
         </div>
         {% endfor %}
-        <div class="border-l-2 border-red-500 p-3 bg-red-900/5 hover-box">
-            <span class="text-red-500 font-bold block text-sm"><a href="https://www.exploit-db.com/author/?a=8966">VIEW_FULL_DATABASE</a></span>
-            <p class="opacity-80 mt-1">Total CVEs published via Exploit-DB....</p>
-        </div>
     </div>
 </section>
 
+# CVEs & EXPLOITs fetching from data/publications.yml 
 <section class="terminal-window p-6 mb-6">
     <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
         <span class="text-yellow-500 font-mono">[02]</span> PUBLICATIONS_&_ARSENAL
@@ -40,17 +40,18 @@ layout: default
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         {% for pub in site.data.publications %}
         <div class="border border-green-900 p-4 hover-box">
-            <h4 class="highlight font-bold">{{ pub.title }}</h4>
+            <h4 class="highlight font-bold"><a href="{{ pub.url }}" target="_blank">{{ pub.title }}</a></h4>
             <p class="text-xs mt-2 opacity-80">{{ pub.desc }}</p>
         </div>
         {% endfor %}
     </div>
 </section>
 
+# Testimonials & Social Proof fetching from data/testimonials.yml and site.social.linkedin
 <section class="terminal-window p-6 mb-6">
     <h2 class="text-2xl font-bold mb-4 flex items-center gap-2 text-blue-400">
         <span class="font-mono text-blue-500">[03]</span> 
-        <a href="https://linkedin.com/in/{{ site.social.linkedin }}" class="text-blue-400 hover:text-blue-300">COMMS_TRAFFIC</a>
+        <a href="https://linkedin.com/in/{{ site.social.linkedin }}" class="text-blue-400 hover:text-blue-300">COMMS_TRAFFIC (Testimonials)</a>
     </h2>
     <div class="space-y-4">
         {% for t in site.data.testimonials %}
@@ -62,6 +63,8 @@ layout: default
     </div>
 </section>
 
+
+# Latest blog posts fetching (current support wordpress )
 <section class="terminal-window p-6 mb-6">
     <h2 class="text-2xl font-bold mb-4 flex items-center gap-2 text-purple-400">
         <span class="text-purple-500 font-mono">[04]</span> LATEST_INTEL ({{ site.url | remove: "https://" | remove: "http://" }})

@@ -1,11 +1,15 @@
 - title: "Netgear RCE Feature // PagedOut!"
+  url: "https://www.pagedout.com/blog/netgear-wnr614-rce"
   desc: "Detailed technical breakdown of an unauthenticated Remote Code Execution chain discovered in Netgear WNR614."
 
 - title: "CIS pfSense Benchmark Author"
+  url: "https://downloads.cisecurity.org/#/:~:text=Palo%20Alto%20Networks-,pfSense%20Firewall,-CIS%20pfSense%20Firewall"
   desc: "Primary author/contributor to the official CIS security configuration guide for pfSense firewalls."
 
 - title: "Exploit-DB / Metasploit Framework"
+  url: "https://www.exploit-db.com/author/?a=8966"
   desc: "Published 10+ exploit modules for various web and network-level vulnerabilities."
   
 - title: "ShellPop & Subzy"
-  desc: "Creator of interactive shell generator (ShellPop) and active contributor to Subzy."
+  url: "https://github.com/0x00-0x00/ShellPop"
+  desc: "Co-Creator of interactive shell generator (ShellPop) and active contributor to Subzy."
