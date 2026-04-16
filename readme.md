@@ -30,6 +30,10 @@ bundle exec jekyll serve
 ```
 Then navigate to http://localhost:4000 in your browser.
 
+### Preview
+<img width="1078" height="923" alt="image" src="https://github.com/user-attachments/assets/71d768f6-c1d0-4312-8ac7-fe7018550f2a" />
+
+
 ### Directory Structure
 ```plaintext
 .
