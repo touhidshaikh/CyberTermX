@@ -1,0 +1,15 @@
+- name: "403Override-NG"
+  url: "https://github.com/touhidshaikh/403Override-NG"
+  desc: "Advanced multi-threaded Burp Suite extension automating 401/403 bypass discovery, featuring strict Diff-engine verification and YAML configuration."
+
+- name: "TheForbiddenFortress"
+  url: "#"
+  desc: "Intentionally vulnerable laboratory environment designed for testing 403 bypass tools against reverse proxy discrepancies."
+
+- name: "AuditMate"
+  url: "#"
+  desc: "Network configuration auditing tool utilizing vendor-specific parsers and a custom rule engine."
+
+- name: "ShellPop"
+  url: "https://github.com/touhidshaikh/ShellPop"
+  desc: "Interactive shell generator with encrypted payloads."

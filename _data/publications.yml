@@ -1,0 +1,11 @@
+- title: "Netgear RCE Feature // PagedOut!"
+  desc: "Detailed technical breakdown of an unauthenticated Remote Code Execution chain discovered in Netgear WNR614."
+
+- title: "CIS pfSense Benchmark Author"
+  desc: "Primary author/contributor to the official CIS security configuration guide for pfSense firewalls."
+
+- title: "Exploit-DB / Metasploit Framework"
+  desc: "Published 10+ exploit modules for various web and network-level vulnerabilities."
+  
+- title: "ShellPop & Subzy"
+  desc: "Creator of interactive shell generator (ShellPop) and active contributor to Subzy."

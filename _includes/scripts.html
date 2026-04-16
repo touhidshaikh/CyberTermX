@@ -1,0 +1,130 @@
+<script>
+    // 1. Matrix Background
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+    const chars = '01ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ｦｱｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ';
+    const drops = Array(Math.floor(canvas.width / 14)).fill(1);
+    function drawMatrix() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#0F0'; ctx.font = '14px monospace';
+        for (let i = 0; i < drops.length; i++) {
+            const text = chars[Math.floor(Math.random() * chars.length)];
+            ctx.fillText(text, i * 14, drops[i] * 14);
+            if (drops[i] * 14 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        }
+    }
+    setInterval(drawMatrix, 35);
+
+    // 2. WordPress RSS Feed Logic
+    async function fetchBlog() {
+        try {
+            // Assumes your URL is configured correctly in _config.yml
+            const response = await fetch('https://api.rss2json.com/v1/api.json?rss_url={{ site.url }}/feed/');
+            const data = await response.json();
+            const container = document.getElementById('blog-feed');
+            container.innerHTML = '';
+            data.items.slice(0, 3).forEach(item => {
+                const date = item.pubDate.split(' ')[0];
+                container.innerHTML += `
+                    <a href="${item.link}" target="_blank" class="block border-l-2 border-purple-900 bg-purple-950/10 pl-4 py-3 hover:bg-purple-900/20 transition group">
+                        <span class="text-[10px] text-purple-400 font-mono block mb-1 uppercase">PACKET_DATE: ${date}</span>
+                        <span class="text-sm text-white font-bold group-hover:text-purple-300 transition">${item.title}</span>
+                    </a>`;
+            });
+        } catch (e) {
+            document.getElementById('blog-feed').innerHTML = "<span class='text-red-500 text-xs'>ERROR: Failed to establish handshake with feed.</span>";
+        }
+    }
+    fetchBlog();
+
+    // 3. Dynamic Terminal Logic via JSON
+    let termData = {};
+    const cmdHistory = [];
+    
+    // Fetch Jekyll data exported as JSON
+    fetch('{{ site.baseurl }}/terminal.json')
+        .then(response => response.json())
+        .then(data => { termData = data; })
+        .catch(err => console.error("Terminal JSON load failed", err));
+
+    const termInput = document.getElementById('term-input');
+    const termOutput = document.getElementById('term-output');
+
+    termInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            const cmd = this.value.trim().toLowerCase();
+            this.value = '';
+            if(cmd !== '') cmdHistory.push(cmd);
+            
+            termOutput.innerHTML += `<div><span class="text-cyan-500">guest@${termData.domain || 'localhost'}:~$</span> <span class="text-white">${cmd}</span></div>`;
+            
+            let response = '';
+            if (cmd === 'help') {
+                response = 'Available commands:<br>- whoami<br>- id<br>- ls<br>- cat [file]<br>- neofetch<br>- history<br>- clear<br>- hostname<br>- download';
+            } else if (cmd === 'whoami') {
+                response = `${termData.name} | ${termData.role}`;
+            } else if (cmd === 'hostname') {
+                response = termData.domain;
+            } else if (cmd === 'id') {
+                response = 'uid=1000(guest) gid=1000(guest) groups=1000(guest)';
+            } else if (cmd === 'ls' || cmd === 'ls -la' || cmd === 'll') {
+                response = 'skills.txt &nbsp;&nbsp;&nbsp; cve_list.txt &nbsp;&nbsp;&nbsp; <span class="text-blue-400">projects/</span> &nbsp;&nbsp;&nbsp; <span class="text-green-400">resume.pdf</span>';
+            } else if (cmd === 'cat skills.txt') {
+                response = termData.skills ? termData.skills.map(s => `[+] ${s}`).join('<br>') : 'No skills found.';
+            } else if (cmd === 'cat cve_list.txt') {
+                response = termData.cves ? termData.cves.join('<br>') : 'No CVEs found.';
+            } else if (cmd === 'download' || cmd === 'download resume.pdf') {
+                response = '[+] Initializing secure file transfer...<br>[+] Downloading Resume...';
+                window.open('{{ site.url }}/resume.pdf', '_blank');
+            } else if (cmd.startsWith('cat ')) {
+                const file = cmd.split(' ')[1];
+                response = `<span class="text-red-500">cat: ${file}: Permission denied or file not found</span>`;
+            } else if (cmd === 'neofetch') {
+                response = `
+                    <div class="flex">
+                        <pre class="text-green-500 mr-4 font-bold">\\ \\\n \\ \\\n  > \\\n / /\n/ /\n                        </pre>
+                        <div>
+                            <span class="text-white font-bold">${termData.domain || 'mainframe'}</span><br>
+                            -----------------<br>
+                            <span class="text-green-400">OS:</span> Cyber_OS_v2.0<br>
+                            <span class="text-green-400">Kernel:</span> 13.3.7-exploit<br>
+                            <span class="text-green-400">Packages:</span> ${termData.cves ? termData.cves.length : 0} (CVEs)<br>
+                            <span class="text-green-400">Shell:</span> bash
+                        </div>
+                    </div>`;
+            } else if (cmd === 'history') {
+                response = cmdHistory.map((c, i) => `${i+1}  ${c}`).join('<br>');
+            } else if (cmd.startsWith('sudo')) {
+                response = `<span class="text-red-500">guest is not in the sudoers file. This incident will be reported.</span>`;
+            } else if (cmd === 'clear') {
+                termOutput.innerHTML = '';
+            } else if (cmd !== '') {
+                response = `<span class="text-red-500">bash: ${cmd}: command not found</span>`;
+            }
+
+            if (response) {
+                termOutput.innerHTML += `<div class="text-cyan-300 mt-1 mb-3 ml-2">${response}</div>`;
+            }
+            termOutput.scrollTop = termOutput.scrollHeight;
+        }
+    });
+    
+
+    // 4. Console Easter Egg
+    console.log("%c   _____                          _   _ \n  / ____|                        | | | |\n | (___    ___   ___  _   _  ___ | |_| |\n  \\___ \\  / _ \\ / __|| | | |/ __|| __| |\n  ____) ||  __/| (__ | |_| |\\__ \\| |_|_|\n |_____/  \\___| \\___| \\__,_||___/ \\__(_)\n\n WARNING: UNAUTHORIZED ACCESS DETECTED.\n FLAG{INSP3CT_3L3M3NT_M4ST3R}", "color: #0f0; font-weight: bold; font-family: monospace;");
+
+    // 5. Konami Code Easter Egg
+    let kKeys = [];
+    const konami = '38,38,40,40,37,39,37,39,66,65'; // Up Up Down Down Left Right Left Right B A
+    window.addEventListener('keydown', (e) => {
+        kKeys.push(e.keyCode);
+        if (kKeys.toString().indexOf(konami) >= 0) {
+            alert('SYSTEM OVERRIDE ENGAGED: Welcome to the backend.');
+            document.body.style.filter = "invert(1) hue-rotate(180deg)";
+            kKeys = [];
+        }
+    });
+</script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>

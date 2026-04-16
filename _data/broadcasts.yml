@@ -1,0 +1,8 @@
+- title: "Upcoming Presentation: Decrypting the JOSE Stack"
+  desc: "A comprehensive technical deep-dive into JSON Web Token (JWT) security. Covering internal structures, signature verification attacks, access control bypasses, and enterprise-grade mitigation strategies."
+
+- title: "Crestcon 2024: Mitigating Supply Chain Attacks: Strategies for Resilient Cybersecurity | Jun 18, 2024"
+  desc: "I, along with my colleague, presented 'Mitigating Supply Chain Attacks: Strategies for Resilient Cybersecurity' at CRESTCon 2024 in London."
+
+- title: "Threatcon 2023: Cybersecurity and Supply Chain Risk Management: Best Practices for Procurement | Oct 10, 2023"
+  desc: "I presented 'Cybersecurity and Supply Chain Risk Management: Best Practices for Procurement' at Threatcon 2023 in Kathmandu, Nepal."

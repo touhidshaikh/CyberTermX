@@ -1,0 +1,7 @@
+{
+  "name": "{{ site.author.name }}",
+  "role": "{{ site.author.role }}",
+  "domain": "{{ site.url | remove: 'https://' | remove: 'http://' }}",
+  "skills": {{ site.skills | jsonify }},
+  "cves": {{ site.data.cves | map: "id" | jsonify }}
+}

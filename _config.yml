@@ -1,0 +1,32 @@
+title: TOUHID SHAIKH | SECURITY RESEARCHER
+email: touhidshaikh22@gmail.com
+description: Cybersecurity Researcher & Exploit Developer
+url: "https://touhidshaikh.com"
+baseurl: ""
+
+# Personal Details
+author:
+  name: Touhid M Shaikh
+  role: Security_Researcher // Exploit_Developer // Open_Source_Contributor
+  location: Mumbai, IN
+  ip_address: "127.0.0.1"
+  pgp_public_key: |
+    -----BEGIN PGP PUBLIC KEY BLOCK-----
+    [INSERT_YOUR_PGP_KEY_HERE]
+    -----END PGP PUBLIC KEY BLOCK-----
+
+# Certifications
+certifications: ["OSCP", "OSCE", "CRT", "CPSA"]
+
+# Specializations
+skills: ["VAPT", "Network_Security", "WEB_EXPLOIT", "PYTHON_AUTOMATION"]
+
+# Social Links
+social:
+  github: "touhidshaikh"
+  linkedin: "touhidshaikh22"
+  twitter: "touhidshaikh22"
+  hackthebox: "10931"
+
+# Hall of Fame
+hall_of_fame: ["APPLE", "NETGEAR", "SYNOLOGY", "ONEPLUS"]

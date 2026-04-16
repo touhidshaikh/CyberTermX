@@ -1,0 +1,6 @@
+- id: "CVE-2024-43381"
+  title: "reNgine - Stored XSS via DNS Entry."
+- id: "CVE-2021-29069"
+  title: "Netgear Router - Command Injection."
+- id: "CVE-2018-11714"
+  title: "TP-Link - Authentication Bypass."
