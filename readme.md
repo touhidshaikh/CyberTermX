@@ -24,7 +24,7 @@ This theme is **100% dynamic**. You do not need to touch any HTML to update your
 If you want to run the site locally:
 ```bash
 git clone https://github.com/Writeup-DB/CyberTermX.git
-cd yourusername.github.io
+cd CyberTermX
 bundle install
 bundle exec jekyll serve
 ```
