@@ -1,11 +1,11 @@
 <script>
     // ==========================================
-    // CONSOLE EASTER EGG
+    // 1. CONSOLE EASTER EGG
     // ==========================================
     console.log("%c   _____                             _   _ \n  / ____|                           | | | |\n | (___    ___   ___  _   _  ___  | |_| |\n  \\___ \\  / _ \\ / __|| | | |/ __|| __| |\n  ____) ||  __/| (__ | |_| |\\__ \\| |_|_|\n |_____/  \\___| \\___| \\__,_||___/ \\__(_)\n\n WARNING: UNAUTHORIZED ACCESS DETECTED.\n FLAG{INSP3CT_3L3M3NT_M4ST3R}", "color: #0f0; font-weight: bold; font-family: monospace;");
 
     // ==========================================
-    // KONAMI CODE EASTER EGG
+    // 2. KONAMI CODE EASTER EGG
     // ==========================================
     let kKeys = [];
     const konami = '38,38,40,40,37,39,37,39,66,65'; // Up Up Down Down Left Right Left Right B A
@@ -19,34 +19,34 @@
     });
 
     // ==========================================
-    // EASTER EGG: HOLLYWOOD HACKER TYPER
-    // Trigger: Type 'hack' in the terminal or press 'H' 5 times fast
+    // 3. EASTER EGG: HOLLYWOOD HACKER TYPER
+    // Trigger: User types 'hack' or 'pwned' in terminal
     // ==========================================
     const exploitCode = `#!/usr/bin/env python3
-    import socket, struct, time
+import socket, struct, time
 
-    print("[*] Initiating buffer overflow sequence...")
-    target_ip = "192.168.1.100"
-    port = 4444
-    offset = 1024
-    ret_addr = struct.pack("<I", 0x080484b6)
-    payload = b"A" * offset + ret_addr + b"\\x90" * 32 
-    # Insert shellcode here
-    shellcode = b"\\x31\\xc0\\x50\\x68\\x2f\\x2f\\x73\\x68\\x68\\x2f\\x62\\x69\\x6e\\x89\\xe3\\x50\\x53\\x89\\xe1\\xb0\\x0b\\xcd\\x80"
-    payload += shellcode
+print("[*] Initiating buffer overflow sequence...")
+target_ip = "192.168.1.100"
+port = 4444
+offset = 1024
+ret_addr = struct.pack("<I", 0x080484b6)
+payload = b"A" * offset + ret_addr + b"\\x90" * 32 
+# Insert shellcode here
+shellcode = b"\\x31\\xc0\\x50\\x68\\x2f\\x2f\\x73\\x68\\x68\\x2f\\x62\\x69\\x6e\\x89\\xe3\\x50\\x53\\x89\\xe1\\xb0\\x0b\\xcd\\x80"
+payload += shellcode
 
-    try:
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect((target_ip, port))
-        print(f"[+] Connected to {target_ip}:{port}")
-        s.send(payload)
-        print("[+] Payload delivered successfully. Awaiting reverse shell...")
-        time.sleep(2)
-        s.close()
-        print("[!] SYSTEM COMPROMISED. ROOT ACCESS GRANTED.")
-    except Exception as e:
-        print(f"[-] Exploit failed: {e}")
-    `;
+try:
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((target_ip, port))
+    print(f"[+] Connected to {target_ip}:{port}")
+    s.send(payload)
+    print("[+] Payload delivered successfully. Awaiting reverse shell...")
+    time.sleep(2)
+    s.close()
+    print("[!] SYSTEM COMPROMISED. ROOT ACCESS GRANTED.")
+except Exception as e:
+    print(f"[-] Exploit failed: {e}")
+`;
 
     let isHacking = false;
     let hackIndex = 0;
@@ -79,56 +79,50 @@
     }
 
     // ==========================================
-    // EASTER EGG: TERMINAL PASSWORD CRACKER
+    // 4. EASTER EGG: SYSTEM DELETION PANIC
+    // Trigger: User types 'rm -rf /' in terminal
+    // ==========================================
+    function triggerKernelPanic() {
+        // 1. Turn screen red and glitchy
+        document.body.style.transition = "all 0.1s";
+        document.body.style.backgroundColor = "#ff0000";
+        document.body.style.color = "#000000";
+        document.body.style.transform = "skewX(2deg)";
+        
+        let elements = document.querySelectorAll('*');
+        let deleteInterval = setInterval(() => {
+            // Randomly hide elements on the page
+            let randomEl = elements[Math.floor(Math.random() * elements.length)];
+            if (randomEl && randomEl.style) randomEl.style.opacity = '0';
+        }, 50);
+
+        // 2. Fade to black after 3 seconds
+        setTimeout(() => {
+            clearInterval(deleteInterval);
+            document.body.innerHTML = '';
+            document.body.style.backgroundColor = "#000";
+            document.body.style.transform = "none";
+            
+            // 3. Print the matrix text
+            setTimeout(() => {
+                document.body.innerHTML = '<div id="matrix-msg" class="text-green-500 font-mono text-xl p-8"></div>';
+                let msg = "Wake up...\n\nThe system has been wiped.\n\nFollow the white rabbit.";
+                let i = 0;
+                let typeInterval = setInterval(() => {
+                    document.getElementById('matrix-msg').innerHTML += msg.charAt(i);
+                    i++;
+                    if (i >= msg.length) clearInterval(typeInterval);
+                }, 150);
+            }, 1000);
+
+        }, 3000);
+    }
+
+    // ==========================================
+    // 5. EASTER EGG: TERMINAL PASSWORD CRACKER 
     // ==========================================
     let isCracking = false;
     let attemptsLeft = 4;
     const passwords = ["ADMIN", "TOKEN", "SHELL", "LINUX", "BYPAS"];
     let targetPassword = "";
-
-
-    // ==========================================
-// EASTER EGG: SYSTEM DELETION PANIC
-// ==========================================
-
-function triggerKernelPanic() {
-    // 1. Turn screen red and glitchy
-    document.body.style.transition = "all 0.1s";
-    document.body.style.backgroundColor = "#ff0000";
-    document.body.style.color = "#000000";
-    document.body.style.transform = "skewX(2deg)";
-    
-    let elements = document.querySelectorAll('*');
-    let deleteInterval = setInterval(() => {
-        // Randomly hide elements on the page
-        let randomEl = elements[Math.floor(Math.random() * elements.length)];
-        if (randomEl && randomEl.style) randomEl.style.opacity = '0';
-    }, 50);
-
-    // 2. Fade to black after 3 seconds
-    setTimeout(() => {
-        clearInterval(deleteInterval);
-        document.body.innerHTML = '';
-        document.body.style.backgroundColor = "#000";
-        document.body.style.transform = "none";
-        
-        // 3. Print the matrix text
-        setTimeout(() => {
-            document.body.innerHTML = '<div id="matrix-msg" class="text-green-500 font-mono text-xl p-8"></div>';
-            let msg = "Wake up...\n\nThe system has been wiped.\n\nFollow the white rabbit.";
-            let i = 0;
-            let typeInterval = setInterval(() => {
-                document.getElementById('matrix-msg').innerHTML += msg.charAt(i);
-                i++;
-                if (i >= msg.length) clearInterval(typeInterval);
-            }, 150);
-        }, 1000);
-
-    }, 3000);
-}
-
-
-
-
-
 </script>
