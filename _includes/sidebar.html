@@ -84,3 +84,12 @@
         <a class="twitter-timeline" data-theme="dark" data-chrome="noheader nofooter transparent" href="https://twitter.com/{{ site.social.twitter }}" target="_blank">Awaiting Handshake...</a> 
     </div>
 </section>
+
+{% if site.social.hackthebox_badge %}
+<section class="terminal-window p-4 mt-6">
+    <h3 class="border-b border-green-900 mb-3 pb-1 text-green-100 uppercase text-sm"># SYSTEM_METRICS</h3>
+    <a href="https://app.hackthebox.com/users/{{ site.social.hackthebox }}" target="_blank" class="block hover:opacity-80 transition">
+        <img src="https://www.hackthebox.eu/badge/image/{{ site.social.hackthebox }}" alt="Hack The Box" class="w-full">
+    </a>
+</section>
+{% endif %}

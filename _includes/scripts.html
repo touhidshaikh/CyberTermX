@@ -207,19 +207,19 @@
                     case 'crack':
                         if (typeof passwords !== 'undefined') {
                             isCracking = true;
-                            attemptsLeft = 4;
+                            attemptsLeft = 5;
                             targetPassword = passwords[Math.floor(Math.random() * passwords.length)];
                             response = `
                                 <div class="text-cyan-300">
                                     ROBCO INDUSTRIES UNIFIED OPERATING SYSTEM<br>
-                                    COPYRIGHT 2077-2081 ROBCO INDUSTRIES<br>
+                                    COPYRIGHT 2077-2081 ${site.title} INDUSTRIES<br>
                                     -Server 1-<br><br>
                                     0x1F3C: ${passwords[0]}<br>
                                     0x1F4A: ${passwords[1]}<br>
                                     0x1F5B: ${passwords[2]}<br>
                                     0x1F6C: ${passwords[3]}<br>
                                     0x1F7D: ${passwords[4]}<br><br>
-                                    Enter Password (5 chars):
+                                    Access Granted: ${passwords[5]}<br><br>
                                 </div>`;
                         } else {
                             response = `<span class="text-red-500">Error: Cracking module not loaded.</span>`;
@@ -254,6 +254,15 @@
             }
         });
     }
+</script>
+
+<script>
+    document.getElementById('crt-toggle').addEventListener('click', function() {
+    document.querySelector('.crt-scanline').classList.toggle('hidden');
+    document.querySelector('.scanline-anim').classList.toggle('hidden');
+    document.getElementById('matrix').classList.toggle('hidden');
+    this.innerText = this.innerText.includes('DISABLE') ? '[ ENABLE_CRT_EFFECTS ]' : '[ DISABLE_CRT_EFFECTS ]';
+});
 </script>
 
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>

