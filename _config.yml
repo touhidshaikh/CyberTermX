@@ -1,5 +1,5 @@
 # Site Configuration
-title: TOUHID SHAIKH | SECURITY RESEARCHER
+title: Touhid Shaikh's Portfolio
 email: touhidshaikh22@gmail.com
 description: A cybersecurity professional with 6+ years of experience. Expert in identifying critical vulnerabilities (RCE, Auth Bypass) in hardware and enterprise software. Active contributor to <span class="highlight">Metasploit</span> and <span class="highlight">Exploit-DB</span>, with 10+ published exploits. Primary author of the official CIS pfSense Benchmark. Creator of <span class="highlight">403Override-NG</span>.
 url: "https://touhidshaikh.com"
@@ -15,7 +15,26 @@ author:
   ip_address: "127.0.0.1"
   pgp_public_key: |
     -----BEGIN PGP PUBLIC KEY BLOCK-----
-    [INSERT_YOUR_PGP_KEY_HERE]
+    Comment: User ID:	Touhid Shaikh <touhidshaikh22@gmail.com>
+    Comment: Valid from:	17-04-2026 05:21
+    Comment: Valid until:	17-04-2029 12:00
+    Comment: Type:	255-bit EdDSA (secret key available)
+    Comment: Usage:	Signing, Encryption, Certifying User IDs
+    Comment: Fingerprint:	7DC4 4A70 1D41 FC60 484B  5B8D F28D 01E0 2476 8F34
+    
+    
+    mDMEaeF2HBYJKwYBBAHaRw8BAQdAy8wXqO4g06ve+gGa4McUyYKZom8249/gHTm2
+    aS0SCi60KFRvdWhpZCBTaGFpa2ggPHRvdWhpZHNoYWlraDIyQGdtYWlsLmNvbT6I
+    tQQTFgoAXRYhBH3ESnAdQfxgSEtbjfKNAeAkdo80BQJp4XYcGxSAAAAAAAQADm1h
+    bnUyLDIuNSsxLjEyLDIsMQIbAwUJBaVJTAULCQgHAgIiAgYVCgkICwIEFgIDAQIe
+    BwIXgAAKCRDyjQHgJHaPNL4RAP9xLGYq024XApNFAVvblLEZOVtZjRdy16Cnnw+a
+    x0cHIgEAyyPlun2Xr4AXXbjQy2o5e4OOxyyCTno428Gs+uBCkwW4OARp4XYcEgor
+    BgEEAZdVAQUBAQdAbZCiv6/RQ8kiP2YVHlj9Y17bhoN24wN43q63aJiIZB8DAQgH
+    iJoEGBYKAEIWIQR9xEpwHUH8YEhLW43yjQHgJHaPNAUCaeF2HBsUgAAAAAAEAA5t
+    YW51MiwyLjUrMS4xMiwyLDECGwwFCQWlSUwACgkQ8o0B4CR2jzSmdAEA8uTE2cNC
+    xh1xyLhSFGz85yx5fkdT9e7cRf2ouGJgRKQA/jP5M+XfBDc7hAApg4jv08gSCbot
+    oCizJo116+cA8JMG
+    =wFd6
     -----END PGP PUBLIC KEY BLOCK-----
 
 # Specializations skills
