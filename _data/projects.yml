@@ -13,3 +13,11 @@
 - name: "WriteupDB"
   url: "https://www.writeup-db.com/"
   desc: "At Writeup-DB, we are dedicated to enhancing the learning experience by providing a comprehensive collection of external writeups."
+
+- name: "JWT-101-Lab: Token Heist"
+  url: "https://github.com/Writeup-DB/JWT-101-Lab"
+  desc: "This vulnerable environment is designed to provide hands-on experience with the attack vectors associated with JSON Web Tokens (JWT, JWS, and JWE)."
+
+- name: "ShellPop"
+  url: "https://github.com/touhidshaikh/ShellPop"
+  desc: "Pop shells like a master with this Reverse/Bind shell generator."
